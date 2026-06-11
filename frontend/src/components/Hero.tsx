@@ -114,7 +114,7 @@ export default function Hero() {
             </div>
 
             {/* Main headline */}
-            <div className="anim-fade-up-1" style={{ marginBottom: "32px" }}>
+            <div className="anim-fade-up-1 hero-headline" style={{ marginBottom: "32px" }}>
               <h1 className="d1" style={{ color: "var(--text-1)", marginBottom: "0" }}>
                 WIN YOUR
               </h1>
