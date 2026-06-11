@@ -19,6 +19,7 @@ from workflow.session_store import create_session, get_session, save_session
 from workflow.executor import execute_step
 from workflow.steps import STEPS, get_step, get_next_step
 
+
 app = FastAPI(title="exHacker API", version="2.0.0")
 
 app.add_middleware(
@@ -30,13 +31,15 @@ app.add_middleware(
         "http://127.0.0.1:3001",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+
+        # Production frontend
+        "https://ex-hacker.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"],
 )
-
 # Thread pool for legacy /generate endpoint
 _executor = ThreadPoolExecutor(max_workers=4)
 
