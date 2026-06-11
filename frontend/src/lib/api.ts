@@ -6,7 +6,7 @@ import {
   WorkflowStateResponse,
 } from "../types/project";
 
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://exhacker.onrender.com/";
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://exhacker.onrender.com";
 
 // ─── Legacy one-shot pipeline ─────────────────────────────────────────────────
 
