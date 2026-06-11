@@ -35,6 +35,13 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+pip-wheel-metadata/
+__pypackages__/
+*.pyd
+
 # Virtual environments
 venv/
 .venv/

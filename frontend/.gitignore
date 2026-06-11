@@ -20,6 +20,10 @@
 # production
 /build
 
+# local tool caches
+/.turbo
+/.vercel
+
 # misc
 .DS_Store
 *.pem

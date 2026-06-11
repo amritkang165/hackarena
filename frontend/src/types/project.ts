@@ -10,6 +10,8 @@ export interface Idea {
   feasibility_score: number;
   innovation_score: number;
   hackathon_fit_score: number;
+  category?: string;
+  tech_stack?: string[];
 }
 
 // ─── Ranked Idea ─────────────────────────────────────────────────────────────
@@ -70,6 +72,7 @@ export interface Slide {
   content: string[];
   speaker_notes: string;
   visual_suggestion: string;
+  slide_type?: string;
 }
 
 // ─── Problem & Opportunity ────────────────────────────────────────────────────

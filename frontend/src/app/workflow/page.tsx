@@ -145,7 +145,7 @@ function RankedIdeasOutput({ data }: { data: Record<string, unknown> }) {
             </div>
           </div>
           <div style={{ textAlign: "right", minWidth: "40px" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: i === 0 ? "var(--blue-light)" : "var(--text-2)" }}>{idea.overall_score ?? "—"}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: i === 0 ? "var(--blue-light)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.final_score ?? "—"}</div>
             <div style={{ fontSize: "9px", color: "var(--text-3)" }}>/10</div>
           </div>
         </div>
@@ -174,10 +174,10 @@ function BlueprintOutput({ data }: { data: Record<string, unknown> }) {
         {Array.isArray(bp.target_users)     && bp.target_users.length > 0     && <DataPanel label="Target Users"><BulletList items={bp.target_users as string[]}/></DataPanel>}
         {Array.isArray(bp.integrations)     && bp.integrations.length > 0     && <DataPanel label="Integrations"><BulletList items={bp.integrations as string[]}/></DataPanel>}
       </div>
-      {bp.architecture_overview && (
+      {typeof bp.architecture_overview === "string" && (
         <div style={{ background: "var(--surface-1)", padding: "20px 28px", borderLeft: "1px solid var(--border)" }}>
           <Label>Architecture Overview</Label>
-          <p style={{ fontSize: "13px", color: "var(--text-2)", lineHeight: 1.7 }}>{bp.architecture_overview as string}</p>
+          <p style={{ fontSize: "13px", color: "var(--text-2)", lineHeight: 1.7 }}>{bp.architecture_overview}</p>
         </div>
       )}
     </div>
@@ -301,7 +301,7 @@ function IdeaSelector({ ideas, onSelect }: { ideas: RankedIdea[]; onSelect: (t: 
                   </div>
                 </div>
                 <div style={{ textAlign: "right", flexShrink: 0 }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "24px", color: sel ? "var(--blue-light)" : "var(--text-3)", letterSpacing: "-0.02em" }}>{idea.overall_score ?? "—"}</div>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "24px", color: sel ? "var(--blue-light)" : "var(--text-3)", letterSpacing: "-0.02em" }}>{idea.final_score ?? "—"}</div>
                   <div style={{ fontSize: "9px", color: "var(--text-3)", letterSpacing: "0.05em" }}>SCORE</div>
                 </div>
               </div>

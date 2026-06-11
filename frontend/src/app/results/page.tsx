@@ -59,7 +59,7 @@ function GCard({ children, accent = false, blue = false }: { children: React.Rea
   );
 }
 
-function SectionHead({ label, title, accent }: { label: string; title: React.ReactNode; accent?: string }) {
+function SectionHead({ label, title, accent }: { label: string; title: React.ReactNode; accent?: boolean }) {
   return (
     <div style={{ marginBottom: "24px" }}>
       <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--text-3)", letterSpacing: "0.05em", display: "block", marginBottom: "8px" }}>{label}</span>
@@ -118,7 +118,7 @@ function RankedRow({ idea, rank }: { idea: RankedIdea; rank: number }) {
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: isTop ? "var(--blue-light)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.overall_score}</div>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: isTop ? "var(--blue-light)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.final_score}</div>
           <div style={{ fontSize: "9px", color: "var(--text-3)" }}>/10</div>
         </div>
         <span style={{ color: "var(--text-3)", fontSize: "10px", transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "none" }}>▼</span>
@@ -145,7 +145,7 @@ function SlidePanel({ slide }: { slide: Slide }) {
         <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--text-3)", minWidth: "20px" }}>{String(slide.slide_number).padStart(2,"0")}</span>
         <div style={{ flex: 1 }}>
           <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", marginBottom: "2px", letterSpacing: "-0.01em" }}>{slide.title}</p>
-          <p style={{ fontSize: "10px", color: "var(--text-3)" }}>{slide.slide_type}</p>
+          <p style={{ fontSize: "10px", color: "var(--text-3)" }}>{slide.slide_type ?? slide.objective}</p>
         </div>
         <span style={{ color: "var(--text-3)", fontSize: "10px", transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "none" }}>▼</span>
       </div>
@@ -187,16 +187,16 @@ function PitchBlock({ label, duration, text, accentTop = false }: { label: strin
 
 // ─── Blueprint view ───────────────────────────────────────────────────────────
 function BlueprintView({ bp }: { bp: SolutionBlueprint }) {
-  const pv = bp.product_vision as Record<string, unknown> | undefined;
+  const pv = bp.product_vision;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
       {pv && (
         <div style={{ background: "rgba(61,124,246,0.06)", borderLeft: "2px solid var(--blue)", padding: "24px 28px" }}>
           <SLabel color="var(--blue-light)">Product Vision</SLabel>
-          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "22px", color: "var(--text-1)", marginBottom: "8px", letterSpacing: "-0.02em" }}>{pv.product_name as string}</p>
-          <p style={{ fontSize: "14px", color: "var(--text-2)", lineHeight: 1.75, maxWidth: "600px", marginBottom: "16px" }}>{pv.elevator_pitch as string}</p>
+          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "22px", color: "var(--text-1)", marginBottom: "8px", letterSpacing: "-0.02em" }}>{pv.name}</p>
+          <p style={{ fontSize: "14px", color: "var(--text-2)", lineHeight: 1.75, maxWidth: "600px", marginBottom: "16px" }}>{pv.elevator_pitch}</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "var(--border)" }}>
-            {(pv.problem_solved as string) && <GCard><SLabel>Problem Solved</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{pv.problem_solved as string}</p></GCard>}
+            {(pv.problem_solved) && <GCard><SLabel>Problem Solved</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{pv.problem_solved}</p></GCard>}
             {(pv.why_this_wins as string)  && <GCard blue><SLabel color="var(--blue-light)">Why This Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{pv.why_this_wins as string}</p></GCard>}
           </div>
         </div>
@@ -278,7 +278,7 @@ function MarkdownViewer({ text, filename }: { text: string; filename: string }) 
 // ─── Docs tab ────────────────────────────────────────────────────────────────
 function DocsTab({ result }: { result: ProjectResult }) {
   // Extract architecture text from solution_blueprint (no separate agent output exists)
-  const archText = (result.solution_blueprint as Record<string, unknown> | undefined)?.architecture_overview as string | undefined;
+  const archText = result.solution_blueprint?.architecture_overview;
 
   const docs = [
     {
@@ -373,8 +373,10 @@ export default function ResultsPage() {
   );
 
   const bp  = result.solution_blueprint as SolutionBlueprint | undefined;
-  const pv  = bp?.product_vision as Record<string, unknown> | undefined;
-  const sel = result.ranked_ideas?.[0] || (result.ideas?.[0] as unknown as RankedIdea | undefined);
+  const pv  = bp?.product_vision;
+  const sel: Idea | RankedIdea | undefined = result.ranked_ideas?.[0] || result.ideas?.[0];
+  const isIdea = (item: Idea | RankedIdea | undefined): item is Idea => !!item && "problem_solved" in item;
+  const isRankedIdea = (item: Idea | RankedIdea | undefined): item is RankedIdea => !!item && "final_score" in item;
 
   return (
     <>
@@ -394,7 +396,7 @@ export default function ResultsPage() {
                   {result.hackathon_name && <span className="badge">{result.hackathon_name}</span>}
                 </div>
                 <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(20px,4vw,36px)", letterSpacing: "-0.03em", color: "var(--text-1)", marginBottom: "8px" }}>
-                  {pv?.product_name as string || sel?.title || "Your Strategy"}
+                  {pv?.name || sel?.title || "Your Strategy"}
                 </h1>
                 <p style={{ fontSize: "14px", color: "var(--text-2)", maxWidth: "560px", lineHeight: 1.6 }}>
                   {pv?.elevator_pitch as string || sel?.description?.slice(0,120) || ""}
@@ -448,9 +450,9 @@ export default function ResultsPage() {
                           ))}
                         </div>
                       </div>
-                      {typeof (sel as RankedIdea).overall_score === "number" && (
+                      {typeof (sel as RankedIdea).final_score === "number" && (
                         <div style={{ textAlign: "center", background: "var(--surface-1)", padding: "20px 28px", borderLeft: "1px solid var(--border)" }}>
-                          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "52px", color: "var(--blue-light)", letterSpacing: "-0.04em", lineHeight: 1 }}>{(sel as RankedIdea).overall_score}</div>
+                          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "52px", color: "var(--blue-light)", letterSpacing: "-0.04em", lineHeight: 1 }}>{(sel as RankedIdea).final_score}</div>
                           <div style={{ fontSize: "10px", color: "var(--text-3)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Overall Score</div>
                         </div>
                       )}
@@ -533,10 +535,10 @@ export default function ResultsPage() {
                   ))}
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "1px", background: "var(--border)" }}>
-                  {(sel as Idea).problem_solved    && <GCard><SLabel>Problem Solved</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{(sel as Idea).problem_solved}</p></GCard>}
-                  {(sel as Idea).why_it_wins       && <GCard blue><SLabel color="var(--blue-light)">Why It Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{(sel as Idea).why_it_wins}</p></GCard>}
-                  {(sel as Idea).innovation_factor && <GCard><SLabel>Innovation Factor</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{(sel as Idea).innovation_factor}</p></GCard>}
-                  {Array.isArray((sel as RankedIdea).strengths) && (sel as RankedIdea).strengths?.length > 0 && <GCard accent><SLabel color="var(--lime)">Strengths</SLabel><BList items={(sel as RankedIdea).strengths!} color="var(--text-2)"/></GCard>}
+                  {isIdea(sel) && sel.problem_solved && <GCard><SLabel>Problem Solved</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.problem_solved}</p></GCard>}
+                  {isIdea(sel) && sel.why_it_wins && <GCard blue><SLabel color="var(--blue-light)">Why It Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.why_it_wins}</p></GCard>}
+                  {isIdea(sel) && sel.innovation_factor && <GCard><SLabel>Innovation Factor</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.innovation_factor}</p></GCard>}
+                  {isRankedIdea(sel) && sel.strengths?.length > 0 && <GCard accent><SLabel color="var(--lime)">Strengths</SLabel><BList items={sel.strengths} color="var(--text-2)"/></GCard>}
                 </div>
               </div>
             </div>
