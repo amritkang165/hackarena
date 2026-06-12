@@ -6,7 +6,7 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from langchain_groq import ChatGroq
 
-from schemas.presentation import Presentation
+from schemas.presentation_pitch import PresentationPitch
 
 load_dotenv()
 
@@ -25,8 +25,8 @@ slides_service = build("slides", "v1", credentials=creds) if creds else None
 drive_service = build("drive", "v3", credentials=creds) if creds else None
 
 llm = ChatGroq(
-    model="mixtral-8x7b-32768",
-    api_key=os.getenv("GROQ_API_KEY3")
+    model="llama-3.3-70b-versatile",
+    api_key=os.getenv("GROQ_API_KEY1")
 )
 
 THEMES = [
@@ -320,58 +320,40 @@ def create_google_slides(slides_data: list[dict]) -> str:
     return f"https://docs.google.com/presentation/d/{pres_id}"
 
 
-def presentation_agent_node(state):
-
+def pitch_deck_node(state):
     if not creds or not creds.valid:
         return {
             "slides": [],
-            "presentation_url": "Not authenticated. Run: .venv/bin/python setup_oauth.py"
+            "presentation_url": "Not authenticated. Run: .venv/bin/python setup_oauth.py",
+            "pitch_30s": "",
+            "pitch_2min": "",
+            "pitch_5min": ""
         }
 
     selected_idea = state["selected_idea"]
     solution_blueprint = state["solution_blueprint"]
 
-    prompt = f"""
-You are exHacker, an elite Pitch Architect and Y-Combinator alumni who has coached dozens of teams to hackathon grand prizes and seed funding. Your expertise is distilling complex technical concepts into persuasive, visually striking, and emotionally resonant pitch scripts.
+    prompt = f"""Create a 10-slide pitch deck and 3 pitch scripts (30s, 2min, 5min) for this hackathon project.
 
-Your job is to generate a world-class 10-slide pitch deck script based on the provided Idea and Solution Blueprint.
+For EACH slide, you MUST provide these exact fields:
+- slide_number: integer
+- title: string
+- objective: string (the goal of this slide)
+- content: list of strings (3-4 bullet points)
+- speaker_notes: string (what the presenter says)
+- visual_suggestion: string (chart/flow/comparison/text)
 
-Evaluation & Pitch Rules:
+Also provide:
+- pitch_30s: string (30-second elevator pitch)
+- pitch_2min: string (2-minute hackathon pitch)
+- pitch_5min: string (5-minute investor pitch)
 
-The 10-Second Rule: A judge must understand the slide's core message within 10 seconds. Avoid walls of text.
+Idea: {selected_idea}
+Blueprint: {solution_blueprint}
 
-The Narrative Arc: Tell a compelling story: a painful problem, a magical solution, and a massive opportunity.
+Pitches must be compelling, story-driven, and natural when spoken."""
 
-Hackathon/Investor Hybrid: Emphasize the technical "wow" factor for hackathon judges, but clearly state the Go-To-Market and Business Model for investors.
-
-Speaker Notes: Write the speaker notes as an actual script—charismatic, fast-paced, and confident.
-
-Input Data:
-
-Selected Idea:
-{selected_idea}
-
-Solution Blueprint:
-{solution_blueprint}
-
-Output Format:
-
-Generate exactly 10 slides using the exact markdown structure below:
-
-Slide [1-10]: [Slide Topic]
-
-Headline: [One massive, provocative statement or statistic (Max 8 words)]
-
-On-Slide Content: [3-4 punchy bullet points. Max 6 words per bullet.]
-
-Visual/Demo Suggestion: [Explicit instructions on what is shown on screen—e.g., "A GIF showing code compiling," "The live hardware demo"]
-
-The Speaker Script: ["Write the exact words the presenter will say. Include stage cues like (Pause for effect) or (Point to screen)."]
-"""
-
-    result = llm.with_structured_output(
-        Presentation
-    ).invoke(prompt)
+    result = llm.with_structured_output(PresentationPitch).invoke(prompt)
 
     slides = [slide.model_dump() for slide in result.slides]
 
@@ -384,5 +366,8 @@ The Speaker Script: ["Write the exact words the presenter will say. Include stag
 
     return {
         "slides": slides,
-        "presentation_url": presentation_url
+        "presentation_url": presentation_url,
+        "pitch_30s": result.pitch_30s,
+        "pitch_2min": result.pitch_2min,
+        "pitch_5min": result.pitch_5min
     }

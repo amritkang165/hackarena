@@ -8,7 +8,7 @@ from schemas.ranked_idea import RankedIdeaList
 load_dotenv()
 
 llm = ChatGroq(
-    model="llama-3.3-70b-versatile",
+    model="mixtral-8x7b-32768",
     api_key=os.getenv("GROQ_API_KEY1")
 )
 

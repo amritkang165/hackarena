@@ -14,6 +14,7 @@ class AgentState(TypedDict):
     selected_idea: dict
     solution_blueprint: dict
     slides: list
+    presentation_url: str
     pitch_30s: str
     pitch_2min: str
     pitch_5min: str

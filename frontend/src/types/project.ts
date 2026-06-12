@@ -103,6 +103,7 @@ export interface ProjectResult {
   selected_idea: Idea;
   solution_blueprint: SolutionBlueprint;
   slides: Slide[];
+  presentation_url?: string;
   pitch_30s: string;
   pitch_2min: string;
   pitch_5min: string;

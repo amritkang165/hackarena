@@ -3,15 +3,12 @@ from langgraph.graph import END
 
 from schemas.state import AgentState
 
-from agents.problem_analyst import problem_analyst_node
-from agents.idea_generator import idea_generator_node
-from agents.idea_validator import idea_validator_node
+from agents.analysis_planner import analysis_planner_node
+from agents.idea_pipeline import idea_pipeline_node
 from agents.idea_selector import idea_selector_node
 from agents.solution_architect import solution_architect_node
-from agents.presentation_agent import presentation_agent_node
-from agents.pitch_agent import pitch_agent_node
+from agents.pitch_deck import pitch_deck_node
 from agents.report_generator import report_generator_node
-from agents.opportunity_planner import opportunity_planner_node
 
 
 builder = StateGraph(AgentState)
@@ -19,18 +16,13 @@ builder = StateGraph(AgentState)
 # Nodes
 
 builder.add_node(
-    "problem_analyst",
-    problem_analyst_node
+    "analysis_planner",
+    analysis_planner_node
 )
 
 builder.add_node(
-    "idea_generator",
-    idea_generator_node
-)
-
-builder.add_node(
-    "idea_validator",
-    idea_validator_node
+    "idea_pipeline",
+    idea_pipeline_node
 )
 
 builder.add_node(
@@ -44,13 +36,8 @@ builder.add_node(
 )
 
 builder.add_node(
-    "presentation_agent",
-    presentation_agent_node
-)
-
-builder.add_node(
-    "pitch_agent",
-    pitch_agent_node
+    "pitch_deck",
+    pitch_deck_node
 )
 
 builder.add_node(
@@ -58,36 +45,21 @@ builder.add_node(
     report_generator_node
 )
 
-builder.add_node(
-    "opportunity_planner",
-    opportunity_planner_node
-)
-
 # Entry Point
 
 builder.set_entry_point(
-    "problem_analyst"
+    "analysis_planner"
 )
 
 # Edges
 
 builder.add_edge(
-    "problem_analyst",
-    "opportunity_planner"
+    "analysis_planner",
+    "idea_pipeline"
 )
 
 builder.add_edge(
-    "opportunity_planner",
-    "idea_generator"
-)
-
-builder.add_edge(
-    "idea_generator",
-    "idea_validator"
-)
-
-builder.add_edge(
-    "idea_validator",
+    "idea_pipeline",
     "idea_selector"
 )
 
@@ -98,16 +70,11 @@ builder.add_edge(
 
 builder.add_edge(
     "solution_architect",
-    "presentation_agent"
+    "pitch_deck"
 )
 
 builder.add_edge(
-    "presentation_agent",
-    "pitch_agent"
-)
-
-builder.add_edge(
-    "pitch_agent",
+    "pitch_deck",
     "report_generator"
 )
 

@@ -69,7 +69,7 @@ export default function AnimatedBackground() {
           if (dist < CONNECTION_DISTANCE) {
             const t = 1 - dist / CONNECTION_DISTANCE;
             ctx!.beginPath();
-            ctx!.strokeStyle = `rgba(61,124,246,${t * 0.12})`;
+            ctx!.strokeStyle = `rgba(200,182,240,${t * 0.12})`;
             ctx!.lineWidth   = 0.6;
             ctx!.moveTo(pi.x, pi.y);
             ctx!.lineTo(pj.x, pj.y);

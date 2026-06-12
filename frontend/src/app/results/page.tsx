@@ -36,7 +36,7 @@ function BList({ items, color = "var(--text-2)" }: { items: string[]; color?: st
   );
 }
 
-function ScoreBar({ value, color = "var(--blue)" }: { value: number; color?: string }) {
+function ScoreBar({ value, color = "var(--pastel-purple)" }: { value: number; color?: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <div className="score-track" style={{ flex: 1 }}>
@@ -50,9 +50,9 @@ function ScoreBar({ value, color = "var(--blue)" }: { value: number; color?: str
 function GCard({ children, accent = false, blue = false }: { children: React.ReactNode; accent?: boolean; blue?: boolean }) {
   return (
     <div style={{
-      background: blue ? "rgba(61,124,246,0.06)" : "var(--surface-1)",
+      background: blue ? "rgba(200,182,240,0.06)" : "var(--surface-1)",
       padding: "20px",
-      borderLeft: blue ? "2px solid var(--blue)" : accent ? "2px solid var(--lime)" : "1px solid var(--border)",
+      borderLeft: blue ? "2px solid var(--pastel-purple)" : accent ? "2px solid var(--pastel-pink)" : "1px solid var(--border)",
     }}>
       {children}
     </div>
@@ -64,7 +64,7 @@ function SectionHead({ label, title, accent }: { label: string; title: React.Rea
     <div style={{ marginBottom: "24px" }}>
       <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--text-3)", letterSpacing: "0.05em", display: "block", marginBottom: "8px" }}>{label}</span>
       <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(20px,3vw,28px)", letterSpacing: "-0.02em", color: "var(--text-1)" }}>{title}</h3>
-      {accent && <div style={{ width: "32px", height: "2px", background: "var(--blue)", marginTop: "12px" }} />}
+      {accent && <div style={{ width: "32px", height: "2px", background: "var(--pastel-purple)", marginTop: "12px" }} />}
     </div>
   );
 }
@@ -74,9 +74,9 @@ function IdeaRow({ idea, rank }: { idea: Idea; rank: number }) {
   const [open, setOpen] = useState(false);
   const isTop = rank === 1;
   return (
-    <div style={{ background: isTop ? "rgba(61,124,246,0.06)" : "var(--surface-1)", borderLeft: isTop ? "2px solid var(--blue)" : "1px solid var(--border)" }}>
+    <div style={{ background: isTop ? "rgba(200,182,240,0.06)" : "var(--surface-1)", borderLeft: isTop ? "2px solid var(--pastel-purple)" : "1px solid var(--border)" }}>
       <div onClick={() => setOpen(o => !o)} style={{ padding: "16px 20px", display: "flex", gap: "16px", alignItems: "center", cursor: "pointer" }}>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: isTop ? "var(--blue-light)" : "var(--text-3)", minWidth: "20px" }}>{String(rank).padStart(2,"0")}</span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: isTop ? "var(--pastel-purple)" : "var(--text-3)", minWidth: "20px" }}>{String(rank).padStart(2,"0")}</span>
         <div style={{ flex: 1 }}>
           <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", marginBottom: "3px", letterSpacing: "-0.01em" }}>{idea.title}</p>
           <p style={{ fontSize: "11px", color: "var(--text-3)" }}>{idea.category || idea.tech_stack?.join(", ")}</p>
@@ -88,7 +88,7 @@ function IdeaRow({ idea, rank }: { idea: Idea; rank: number }) {
         <div style={{ padding: "0 20px 20px", borderTop: "1px solid var(--border)" }}>
           <p style={{ fontSize: "13px", color: "var(--text-2)", lineHeight: 1.75, paddingTop: "16px", marginBottom: "16px" }}>{idea.description}</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1px", background: "var(--border)", marginBottom: "16px" }}>
-            {[{l:"Feasibility",v:idea.feasibility_score,c:"var(--blue-light)"},{l:"Innovation",v:idea.innovation_score,c:"var(--sky)"},{l:"Fit",v:idea.hackathon_fit_score,c:"var(--lime)"}].map(({l,v,c}) => (
+            {[{l:"Feasibility",v:idea.feasibility_score,c:"var(--pastel-purple)"},{l:"Innovation",v:idea.innovation_score,c:"var(--pastel-blue)"},{l:"Fit",v:idea.hackathon_fit_score,c:"var(--pastel-pink)"}].map(({l,v,c}) => (
               <div key={l} style={{ background: "var(--surface-1)", padding: "14px", textAlign: "center" }}>
                 <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "22px", color: c, marginBottom: "3px" }}>{v}</div>
                 <div style={{ fontSize: "9px", color: "var(--text-3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
@@ -106,19 +106,19 @@ function RankedRow({ idea, rank }: { idea: RankedIdea; rank: number }) {
   const [open, setOpen] = useState(false);
   const isTop = rank === 1;
   return (
-    <div style={{ background: isTop ? "rgba(61,124,246,0.06)" : "var(--surface-1)", borderLeft: isTop ? "2px solid var(--blue)" : "1px solid var(--border)" }}>
+    <div style={{ background: isTop ? "rgba(200,182,240,0.06)" : "var(--surface-1)", borderLeft: isTop ? "2px solid var(--pastel-purple)" : "1px solid var(--border)" }}>
       <div onClick={() => setOpen(o => !o)} style={{ padding: "14px 20px", display: "flex", gap: "14px", alignItems: "center", cursor: "pointer" }}>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: isTop ? "var(--blue-light)" : "var(--text-3)", minWidth: "20px" }}>{String(rank).padStart(2,"0")}</span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: isTop ? "var(--pastel-purple)" : "var(--text-3)", minWidth: "20px" }}>{String(rank).padStart(2,"0")}</span>
         <div style={{ flex: 1 }}>
           <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", marginBottom: "3px", letterSpacing: "-0.01em" }}>{idea.title}</p>
           <div style={{ display: "flex", gap: "10px" }}>
-            {[["F",idea.feasibility_score,"var(--blue-light)"],["I",idea.innovation_score,"var(--sky)"],["Fit",idea.hackathon_fit_score,"var(--lime)"],["M",idea.market_potential_score,"var(--text-2)"],["W",idea.technical_wow_factor,"var(--text-2)"]].map(([l,v,c]) => (
+            {[["F",idea.feasibility_score,"var(--pastel-purple)"],["I",idea.innovation_score,"var(--pastel-blue)"],["Fit",idea.hackathon_fit_score,"var(--pastel-pink)"],["M",idea.market_potential_score,"var(--text-2)"],["W",idea.technical_wow_factor,"var(--text-2)"]].map(([l,v,c]) => (
               <span key={l as string} style={{ fontSize: "10px", color: c as string, fontFamily: "var(--font-mono)" }}>{l}:{v}</span>
             ))}
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: isTop ? "var(--blue-light)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.final_score}</div>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: isTop ? "var(--pastel-purple)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.final_score}</div>
           <div style={{ fontSize: "9px", color: "var(--text-3)" }}>/10</div>
         </div>
         <span style={{ color: "var(--text-3)", fontSize: "10px", transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "none" }}>▼</span>
@@ -127,7 +127,7 @@ function RankedRow({ idea, rank }: { idea: RankedIdea; rank: number }) {
         <div style={{ padding: "0 20px 20px", borderTop: "1px solid var(--border)" }}>
           <p style={{ fontSize: "13px", color: "var(--text-2)", lineHeight: 1.75, paddingTop: "14px", marginBottom: "14px" }}>{idea.description}</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "var(--border)" }}>
-            {idea.strengths?.length > 0 && <GCard accent><SLabel color="var(--lime)">Strengths</SLabel><BList items={idea.strengths} color="var(--text-2)"/></GCard>}
+            {idea.strengths?.length > 0 && <GCard accent><SLabel color="var(--pastel-pink)">Strengths</SLabel><BList items={idea.strengths} color="var(--text-2)"/></GCard>}
             {idea.weaknesses?.length > 0 && <GCard><SLabel>Weaknesses</SLabel><BList items={idea.weaknesses}/></GCard>}
           </div>
         </div>
@@ -156,7 +156,7 @@ function SlidePanel({ slide }: { slide: Slide }) {
             {slide.content.map((c,i) => <p key={i} style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65, padding: "3px 0 3px 12px", borderLeft: "1px solid var(--border-mid)" }}>{c}</p>)}
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "var(--border)" }}>
-            <GCard blue><SLabel color="var(--blue-light)">Speaker Notes</SLabel><p style={{ fontSize: "11px", color: "var(--text-2)", lineHeight: 1.6 }}>{slide.speaker_notes}</p></GCard>
+            <GCard blue><SLabel color="var(--pastel-purple)">Speaker Notes</SLabel><p style={{ fontSize: "11px", color: "var(--text-2)", lineHeight: 1.6 }}>{slide.speaker_notes}</p></GCard>
             <GCard><SLabel>Visual Suggestion</SLabel><p style={{ fontSize: "11px", color: "var(--text-2)", lineHeight: 1.6 }}>{slide.visual_suggestion}</p></GCard>
           </div>
         </div>
@@ -169,14 +169,14 @@ function SlidePanel({ slide }: { slide: Slide }) {
 function PitchBlock({ label, duration, text, accentTop = false }: { label: string; duration: string; text: string; accentTop?: boolean }) {
   const [copied, setCopied] = useState(false);
   return (
-    <div style={{ background: accentTop ? "rgba(194,255,77,0.04)" : "var(--surface-1)", borderLeft: accentTop ? "2px solid var(--lime)" : "1px solid var(--border)", marginBottom: "1px" }}>
+    <div style={{ background: accentTop ? "rgba(244,184,208,0.04)" : "var(--surface-1)", borderLeft: accentTop ? "2px solid var(--pastel-pink)" : "1px solid var(--border)", marginBottom: "1px" }}>
       <div style={{ padding: "14px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid var(--border)" }}>
         <div>
-          <p style={{ fontSize: "13px", fontWeight: 600, color: accentTop ? "var(--lime)" : "var(--text-1)", marginBottom: "2px" }}>{label}</p>
+          <p style={{ fontSize: "13px", fontWeight: 600, color: accentTop ? "var(--pastel-pink)" : "var(--text-1)", marginBottom: "2px" }}>{label}</p>
           <p style={{ fontSize: "10px", color: "var(--text-3)" }}>{duration}</p>
         </div>
         <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-          style={{ fontSize: "11px", color: copied ? "var(--lime)" : "var(--text-3)", background: "none", border: "1px solid var(--border-mid)", padding: "4px 10px", cursor: "pointer", borderRadius: "2px", transition: "all 0.15s" }}>
+          style={{ fontSize: "11px", color: copied ? "var(--pastel-pink)" : "var(--text-3)", background: "none", border: "1px solid var(--border-mid)", padding: "4px 10px", cursor: "pointer", borderRadius: "2px", transition: "all 0.15s" }}>
           {copied ? "✓ Copied" : "Copy"}
         </button>
       </div>
@@ -191,13 +191,13 @@ function BlueprintView({ bp }: { bp: SolutionBlueprint }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
       {pv && (
-        <div style={{ background: "rgba(61,124,246,0.06)", borderLeft: "2px solid var(--blue)", padding: "24px 28px" }}>
-          <SLabel color="var(--blue-light)">Product Vision</SLabel>
+        <div style={{ background: "rgba(200,182,240,0.06)", borderLeft: "2px solid var(--pastel-purple)", padding: "24px 28px" }}>
+          <SLabel color="var(--pastel-purple)">Product Vision</SLabel>
           <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "22px", color: "var(--text-1)", marginBottom: "8px", letterSpacing: "-0.02em" }}>{pv.name}</p>
           <p style={{ fontSize: "14px", color: "var(--text-2)", lineHeight: 1.75, maxWidth: "600px", marginBottom: "16px" }}>{pv.elevator_pitch}</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "var(--border)" }}>
             {(pv.problem_solved) && <GCard><SLabel>Problem Solved</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{pv.problem_solved}</p></GCard>}
-            {(pv.why_this_wins as string)  && <GCard blue><SLabel color="var(--blue-light)">Why This Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{pv.why_this_wins as string}</p></GCard>}
+            {(pv.why_this_wins as string)  && <GCard blue><SLabel color="var(--pastel-purple)">Why This Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{pv.why_this_wins as string}</p></GCard>}
           </div>
         </div>
       )}
@@ -209,9 +209,9 @@ function BlueprintView({ bp }: { bp: SolutionBlueprint }) {
       )}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1px", background: "var(--border)" }}>
         {bp.target_users?.length>0    && <GCard><SLabel>Target Users</SLabel><BList items={bp.target_users}/></GCard>}
-        {bp.core_features?.length>0   && <GCard blue><SLabel color="var(--blue-light)">Core Features</SLabel><BList items={bp.core_features} color="var(--sky)"/></GCard>}
+        {bp.core_features?.length>0   && <GCard blue><SLabel color="var(--pastel-purple)">Core Features</SLabel><BList items={bp.core_features} color="var(--pastel-blue)"/></GCard>}
         {bp.mvp_scope?.length>0       && <GCard><SLabel>MVP Scope</SLabel><BList items={bp.mvp_scope}/></GCard>}
-        {bp.ai_components?.length>0   && <GCard accent><SLabel color="var(--lime)">AI Components</SLabel><BList items={bp.ai_components} color="var(--text-2)"/></GCard>}
+        {bp.ai_components?.length>0   && <GCard accent><SLabel color="var(--pastel-pink)">AI Components</SLabel><BList items={bp.ai_components} color="var(--text-2)"/></GCard>}
         {bp.frontend_components?.length>0 && <GCard><SLabel>Frontend</SLabel><BList items={bp.frontend_components}/></GCard>}
         {bp.integrations?.length>0    && <GCard><SLabel>Integrations</SLabel><BList items={bp.integrations}/></GCard>}
       </div>
@@ -324,7 +324,7 @@ function DocsTab({ result }: { result: ProjectResult }) {
           const text = d.textVal;
           return (
             <div key={d.label} style={{ background: "var(--surface-1)", padding: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
-              <div style={{ color: "var(--blue-light)", opacity: 0.85 }}>{d.icon}</div>
+              <div style={{ color: "var(--pastel-purple)", opacity: 0.85 }}>{d.icon}</div>
               <div>
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "15px", color: "var(--text-1)", marginBottom: "4px", letterSpacing: "-0.01em" }}>{d.label}</p>
                 <p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{d.desc}</p>
@@ -390,7 +390,7 @@ export default function ResultsPage() {
               <div>
                 <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap" }}>
                   <span className="badge badge-blue">
-                    <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--blue)" }} />
+                    <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--pastel-purple)" }} />
                     Strategy Ready
                   </span>
                   {result.hackathon_name && <span className="badge">{result.hackathon_name}</span>}
@@ -406,7 +406,7 @@ export default function ResultsPage() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1px", background: "var(--border)", alignSelf: "flex-start", minWidth: "280px" }}>
                 {[{n:result.ideas?.length||0,l:"Ideas"},{n:result.slides?.length||0,l:"Slides"},{n:3,l:"Pitches"}].map(s => (
                   <div key={s.l} style={{ background: "var(--surface-1)", padding: "16px", textAlign: "center" }}>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "24px", color: "var(--blue-light)", letterSpacing: "-0.02em", marginBottom: "3px" }}>{s.n}</div>
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "24px", color: "var(--pastel-purple)", letterSpacing: "-0.02em", marginBottom: "3px" }}>{s.n}</div>
                     <div style={{ fontSize: "9px", color: "var(--text-3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{s.l}</div>
                   </div>
                 ))}
@@ -435,14 +435,14 @@ export default function ResultsPage() {
               {/* Winner spotlight */}
               {sel && (
                 <section style={{ marginBottom: "56px" }}>
-                  <SectionHead label="[ WINNER ]" title={<><span style={{ color: "var(--blue)" }}>{sel.title?.split(" ").slice(0,-1).join(" ")}</span> {sel.title?.split(" ").at(-1)}</>} accent />
-                  <div style={{ background: "rgba(61,124,246,0.05)", borderLeft: "2px solid var(--blue)", padding: "28px 32px", position: "relative", overflow: "hidden", marginBottom: "1px" }}>
-                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg,transparent,var(--blue),transparent)", opacity: 0.4 }} />
+                  <SectionHead label="[ WINNER ]" title={<><span style={{ color: "var(--pastel-purple)" }}>{sel.title?.split(" ").slice(0,-1).join(" ")}</span> {sel.title?.split(" ").at(-1)}</>} accent />
+                  <div style={{ background: "rgba(200,182,240,0.05)", borderLeft: "2px solid var(--pastel-purple)", padding: "28px 32px", position: "relative", overflow: "hidden", marginBottom: "1px" }}>
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg,transparent,var(--pastel-purple),transparent)", opacity: 0.4 }} />
                     <div style={{ display: "flex", gap: "24px", alignItems: "flex-start", flexWrap: "wrap" }}>
                       <div style={{ flex: 1, minWidth: "280px" }}>
                         <p style={{ fontSize: "15px", color: "var(--text-2)", lineHeight: 1.75, maxWidth: "600px", marginBottom: "20px" }}>{sel.description}</p>
                         <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-                          {[{l:"Feasibility",v:(sel as RankedIdea).feasibility_score,c:"var(--blue-light)"},{l:"Innovation",v:(sel as RankedIdea).innovation_score,c:"var(--sky)"},{l:"Hackathon Fit",v:(sel as RankedIdea).hackathon_fit_score,c:"var(--lime)"}].map(({l,v,c}) => (
+                          {[{l:"Feasibility",v:(sel as RankedIdea).feasibility_score,c:"var(--pastel-purple)"},{l:"Innovation",v:(sel as RankedIdea).innovation_score,c:"var(--pastel-blue)"},{l:"Hackathon Fit",v:(sel as RankedIdea).hackathon_fit_score,c:"var(--pastel-pink)"}].map(({l,v,c}) => (
                             <div key={l} style={{ textAlign: "center" }}>
                               <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "28px", color: c, letterSpacing: "-0.02em" }}>{v}<span style={{ fontSize: "12px", color: "var(--text-3)" }}>/10</span></div>
                               <div style={{ fontSize: "9px", color: "var(--text-3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
@@ -452,7 +452,7 @@ export default function ResultsPage() {
                       </div>
                       {typeof (sel as RankedIdea).final_score === "number" && (
                         <div style={{ textAlign: "center", background: "var(--surface-1)", padding: "20px 28px", borderLeft: "1px solid var(--border)" }}>
-                          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "52px", color: "var(--blue-light)", letterSpacing: "-0.04em", lineHeight: 1 }}>{(sel as RankedIdea).final_score}</div>
+                          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "52px", color: "var(--pastel-purple)", letterSpacing: "-0.04em", lineHeight: 1 }}>{(sel as RankedIdea).final_score}</div>
                           <div style={{ fontSize: "10px", color: "var(--text-3)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Overall Score</div>
                         </div>
                       )}
@@ -471,7 +471,7 @@ export default function ResultsPage() {
                       <GCard><SLabel color="var(--text-3)">Pain Points</SLabel><BList items={result.problem_analysis.pain_points} color="var(--text-2)"/></GCard>
                     )}
                     {Array.isArray(result.problem_analysis.success_metrics) && result.problem_analysis.success_metrics.length > 0 && (
-                      <GCard blue><SLabel color="var(--blue-light)">Success Metrics</SLabel><BList items={result.problem_analysis.success_metrics} color="var(--sky)"/></GCard>
+                      <GCard blue><SLabel color="var(--pastel-purple)">Success Metrics</SLabel><BList items={result.problem_analysis.success_metrics} color="var(--pastel-blue)"/></GCard>
                     )}
                   </div>
                 </section>
@@ -501,7 +501,7 @@ export default function ResultsPage() {
           {/* IDEAS */}
           {tab === "ideas" && (
             <div className="anim-fade-up">
-              <SectionHead label={`[ ${result.ideas?.length || 0} IDEAS GENERATED ]`} title={<>All Concepts — <span style={{ color: "var(--blue-light)" }}>Ranked</span></>} />
+              <SectionHead label={`[ ${result.ideas?.length || 0} IDEAS GENERATED ]`} title={<>All Concepts — <span style={{ color: "var(--pastel-purple)" }}>Ranked</span></>} />
               <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)" }}>
                 {result.ideas?.map((idea,i) => <IdeaRow key={idea.title+i} idea={idea} rank={i+1}/>)}
               </div>
@@ -511,7 +511,7 @@ export default function ResultsPage() {
           {/* RANKINGS */}
           {tab === "rankings" && (
             <div className="anim-fade-up">
-              <SectionHead label="[ RANKINGS ]" title={<>Scored Across <span style={{ color: "var(--sky)" }}>5 Dimensions</span></>} />
+              <SectionHead label="[ RANKINGS ]" title={<>Scored Across <span style={{ color: "var(--pastel-blue)" }}>5 Dimensions</span></>} />
               <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)" }}>
                 {result.ranked_ideas?.map((idea,i) => <RankedRow key={idea.title+i} idea={idea} rank={i+1}/>)}
               </div>
@@ -521,13 +521,13 @@ export default function ResultsPage() {
           {/* WINNER */}
           {tab === "winner" && sel && (
             <div className="anim-fade-up">
-              <SectionHead label="[ WINNER ]" title={<>{sel.title?.split(" ").slice(0,-1).join(" ")} <span style={{ color: "var(--blue)" }}>{sel.title?.split(" ").at(-1)}</span></>} />
+              <SectionHead label="[ WINNER ]" title={<>{sel.title?.split(" ").slice(0,-1).join(" ")} <span style={{ color: "var(--pastel-purple)" }}>{sel.title?.split(" ").at(-1)}</span></>} />
               <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                <div style={{ background: "rgba(61,124,246,0.05)", borderLeft: "2px solid var(--blue)", padding: "24px 28px", marginBottom: "1px" }}>
+                <div style={{ background: "rgba(200,182,240,0.05)", borderLeft: "2px solid var(--pastel-purple)", padding: "24px 28px", marginBottom: "1px" }}>
                   <p style={{ fontSize: "15px", color: "var(--text-2)", lineHeight: 1.8 }}>{sel.description}</p>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1px", background: "var(--border)", marginBottom: "1px" }}>
-                  {[{l:"Feasibility",v:(sel as RankedIdea).feasibility_score,c:"var(--blue-light)"},{l:"Innovation",v:(sel as RankedIdea).innovation_score,c:"var(--sky)"},{l:"Hackathon Fit",v:(sel as RankedIdea).hackathon_fit_score,c:"var(--lime)"}].map(({l,v,c}) => (
+                  {[{l:"Feasibility",v:(sel as RankedIdea).feasibility_score,c:"var(--pastel-purple)"},{l:"Innovation",v:(sel as RankedIdea).innovation_score,c:"var(--pastel-blue)"},{l:"Hackathon Fit",v:(sel as RankedIdea).hackathon_fit_score,c:"var(--pastel-pink)"}].map(({l,v,c}) => (
                     <div key={l} style={{ background: "var(--surface-1)", padding: "24px", textAlign: "center" }}>
                       <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "36px", color: c, marginBottom: "4px" }}>{v}<span style={{ fontSize: "14px", color: "var(--text-3)" }}>/10</span></div>
                       <div style={{ fontSize: "9px", color: "var(--text-3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
@@ -536,9 +536,9 @@ export default function ResultsPage() {
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "1px", background: "var(--border)" }}>
                   {isIdea(sel) && sel.problem_solved && <GCard><SLabel>Problem Solved</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.problem_solved}</p></GCard>}
-                  {isIdea(sel) && sel.why_it_wins && <GCard blue><SLabel color="var(--blue-light)">Why It Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.why_it_wins}</p></GCard>}
+                  {isIdea(sel) && sel.why_it_wins && <GCard blue><SLabel color="var(--pastel-purple)">Why It Wins</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.why_it_wins}</p></GCard>}
                   {isIdea(sel) && sel.innovation_factor && <GCard><SLabel>Innovation Factor</SLabel><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.65 }}>{sel.innovation_factor}</p></GCard>}
-                  {isRankedIdea(sel) && sel.strengths?.length > 0 && <GCard accent><SLabel color="var(--lime)">Strengths</SLabel><BList items={sel.strengths} color="var(--text-2)"/></GCard>}
+                  {isRankedIdea(sel) && sel.strengths?.length > 0 && <GCard accent><SLabel color="var(--pastel-pink)">Strengths</SLabel><BList items={sel.strengths} color="var(--text-2)"/></GCard>}
                 </div>
               </div>
             </div>
@@ -547,7 +547,7 @@ export default function ResultsPage() {
           {/* BLUEPRINT */}
           {tab === "blueprint" && (
             <div className="anim-fade-up">
-              <SectionHead label="[ SOLUTION ARCHITECT ]" title={<>Technical <span style={{ color: "var(--blue-light)" }}>Blueprint</span></>} />
+              <SectionHead label="[ SOLUTION ARCHITECT ]" title={<>Technical <span style={{ color: "var(--pastel-purple)" }}>Blueprint</span></>} />
               {bp ? <BlueprintView bp={bp}/> : <p style={{ color: "var(--text-3)", fontSize: "13px" }}>Blueprint not generated yet.</p>}
             </div>
           )}
@@ -555,7 +555,14 @@ export default function ResultsPage() {
           {/* SLIDES */}
           {tab === "slides" && (
             <div className="anim-fade-up">
-              <SectionHead label={`[ ${result.slides?.length || 0} SLIDES ]`} title={<>Pitch Deck — <span style={{ color: "var(--sky)" }}>Click to Expand</span></>} />
+              <SectionHead label={`[ ${result.slides?.length || 0} SLIDES ]`} title={<>Pitch Deck — <span style={{ color: "var(--pastel-blue)" }}>Click to Expand</span></>} />
+              {result.presentation_url && !result.presentation_url.includes("Not authenticated") && !result.presentation_url.includes("failed") && (
+                <a href={result.presentation_url} target="_blank" rel="noopener noreferrer"
+                   style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "10px 18px", marginBottom: "14px", borderRadius: "8px", background: "var(--accent)", color: "white", fontSize: "13px", fontWeight: 600, textDecoration: "none" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                  Open in Google Slides
+                </a>
+              )}
               <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)" }}>
                 {result.slides?.map(slide => <SlidePanel key={slide.slide_number} slide={slide}/>)}
               </div>
@@ -565,7 +572,7 @@ export default function ResultsPage() {
           {/* PITCHES */}
           {tab === "pitches" && (
             <div className="anim-fade-up">
-              <SectionHead label="[ PITCH SCRIPTS ]" title={<>Three Formats to <span style={{ color: "var(--lime)" }}>Win</span></>} />
+              <SectionHead label="[ PITCH SCRIPTS ]" title={<>Three Formats to <span style={{ color: "var(--pastel-pink)" }}>Win</span></>} />
               {result.pitch_30s  && <PitchBlock label="30-Second Elevator Pitch"   duration="~30 seconds · Perfect for introductions"  text={result.pitch_30s}  accentTop/>}
               {result.pitch_2min && <PitchBlock label="2-Minute Hackathon Pitch"   duration="~2 minutes · Demo day standard"           text={result.pitch_2min}/>}
               {result.pitch_5min && <PitchBlock label="5-Minute Investor Pitch"    duration="~5 minutes · Full story & market"         text={result.pitch_5min}/>}
@@ -575,7 +582,7 @@ export default function ResultsPage() {
           {/* REPORT */}
           {tab === "report" && (
             <div className="anim-fade-up">
-              <SectionHead label="[ FINAL REPORT ]" title={<>Complete <span style={{ color: "var(--blue-light)" }}>Strategy Document</span></>} />
+              <SectionHead label="[ FINAL REPORT ]" title={<>Complete <span style={{ color: "var(--pastel-purple)" }}>Strategy Document</span></>} />
               <MarkdownViewer text={result.final_report || ""} filename="final_report.md"/>
             </div>
           )}
@@ -583,7 +590,7 @@ export default function ResultsPage() {
           {/* DOCS */}
           {tab === "docs" && (
             <div className="anim-fade-up">
-              <SectionHead label="[ DOWNLOADABLE DOCS ]" title={<>Battle-Ready <span style={{ color: "var(--lime)" }}>Documents</span></>} />
+              <SectionHead label="[ DOWNLOADABLE DOCS ]" title={<>Battle-Ready <span style={{ color: "var(--pastel-pink)" }}>Documents</span></>} />
               <DocsTab result={result}/>
             </div>
           )}

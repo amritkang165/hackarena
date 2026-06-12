@@ -51,6 +51,12 @@ ENV/
 env.bak/
 venv.bak/
 
+# Service account key
+backend/service-account.json
+
+# OAuth token
+backend/token.json
+
 # Environment Variables
 .env
 .env.*.local

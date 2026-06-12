@@ -38,7 +38,7 @@ function BulletList({ items, color = "var(--text-2)" }: { items: string[]; color
   );
 }
 
-function ScoreBar({ value, color = "var(--blue)" }: { value: number; color?: string }) {
+function ScoreBar({ value, color = "var(--pastel-purple)" }: { value: number; color?: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <div className="score-track">
@@ -51,8 +51,8 @@ function ScoreBar({ value, color = "var(--blue)" }: { value: number; color?: str
 
 function DataPanel({ label, accent = false, children }: { label: string; accent?: boolean; children: React.ReactNode }) {
   return (
-    <div style={{ background: "var(--surface-1)", padding: "18px", borderLeft: accent ? "2px solid var(--blue)" : "1px solid var(--border)" }}>
-      <Label color={accent ? "var(--blue-light)" : "var(--text-3)"}>{label}</Label>
+    <div style={{ background: "var(--surface-1)", padding: "18px", borderLeft: accent ? "2px solid var(--pastel-purple)" : "1px solid var(--border)" }}>
+      <Label color={accent ? "var(--pastel-purple)" : "var(--text-3)"}>{label}</Label>
       {children}
     </div>
   );
@@ -65,15 +65,15 @@ function ProblemAnalysisOutput({ data }: { data: Record<string, unknown> }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
       {typeof pa.problem_statement === "string" && (
-        <div style={{ background: "var(--surface-0)", padding: "20px 24px", borderLeft: "2px solid var(--blue)" }}>
-          <Label color="var(--blue-light)">Problem Statement</Label>
+        <div style={{ background: "var(--surface-0)", padding: "20px 24px", borderLeft: "2px solid var(--pastel-purple)" }}>
+          <Label color="var(--pastel-purple)">Problem Statement</Label>
           <p style={{ fontSize: "14px", color: "var(--text-1)", lineHeight: 1.75 }}>{pa.problem_statement}</p>
         </div>
       )}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "1px", background: "var(--border)" }}>
         {Array.isArray(pa.pain_points)     && pa.pain_points.length > 0     && <DataPanel label="Pain Points"    accent><BulletList items={pa.pain_points as string[]} color="var(--text-2)"/></DataPanel>}
         {Array.isArray(pa.stakeholders)    && pa.stakeholders.length > 0    && <DataPanel label="Stakeholders"  ><BulletList items={pa.stakeholders as string[]}/></DataPanel>}
-        {Array.isArray(pa.success_metrics) && pa.success_metrics.length > 0 && <DataPanel label="Success Metrics" accent><BulletList items={pa.success_metrics as string[]} color="var(--sky)"/></DataPanel>}
+        {Array.isArray(pa.success_metrics) && pa.success_metrics.length > 0 && <DataPanel label="Success Metrics" accent><BulletList items={pa.success_metrics as string[]} color="var(--pastel-blue)"/></DataPanel>}
       </div>
     </div>
   );
@@ -84,8 +84,8 @@ function OpportunityOutput({ data }: { data: Record<string, unknown> }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
       {typeof oa.market_gap === "string" && (
-        <div style={{ background: "var(--surface-0)", padding: "20px 24px", borderLeft: "2px solid var(--lime)" }}>
-          <Label color="var(--lime)">Market Gap</Label>
+        <div style={{ background: "var(--surface-0)", padding: "20px 24px", borderLeft: "2px solid var(--pastel-pink)" }}>
+          <Label color="var(--pastel-pink)">Market Gap</Label>
           <p style={{ fontSize: "13px", color: "var(--text-2)", lineHeight: 1.7 }}>{oa.market_gap}</p>
         </div>
       )}
@@ -94,7 +94,7 @@ function OpportunityOutput({ data }: { data: Record<string, unknown> }) {
         {typeof oa.market_size   === "string" && <DataPanel label="Market Size" accent><p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6 }}>{oa.market_size}</p></DataPanel>}
       </div>
       {Array.isArray(oa.key_opportunities) && oa.key_opportunities.length > 0 && (
-        <DataPanel label="Key Opportunities" accent><BulletList items={oa.key_opportunities as string[]} color="var(--sky)"/></DataPanel>
+        <DataPanel label="Key Opportunities" accent><BulletList items={oa.key_opportunities as string[]} color="var(--pastel-blue)"/></DataPanel>
       )}
     </div>
   );
@@ -106,12 +106,12 @@ function IdeasOutput({ data }: { data: Record<string, unknown> }) {
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: "1px", background: "var(--border)" }}>
       {ideas.map((idea, i) => (
         <div key={i} style={{
-          background: i === 0 ? "rgba(61,124,246,0.06)" : "var(--surface-1)",
+          background: i === 0 ? "rgba(200,182,240,0.06)" : "var(--surface-1)",
           padding: "18px 20px",
-          borderLeft: i === 0 ? "2px solid var(--blue)" : "1px solid var(--border)",
+          borderLeft: i === 0 ? "2px solid var(--pastel-purple)" : "1px solid var(--border)",
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: i === 0 ? "var(--blue-light)" : "var(--text-3)", letterSpacing: "0.05em" }}>{String(i + 1).padStart(2, "0")}</span>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: i === 0 ? "var(--pastel-purple)" : "var(--text-3)", letterSpacing: "0.05em" }}>{String(i + 1).padStart(2, "0")}</span>
             <span style={{ fontSize: "9px", padding: "2px 8px", border: "1px solid var(--border-mid)", color: "var(--text-3)", borderRadius: "2px" }}>
               {typeof idea.feasibility_score === "number" ? `${idea.feasibility_score}/10` : ""}
             </span>
@@ -130,12 +130,12 @@ function RankedIdeasOutput({ data }: { data: Record<string, unknown> }) {
     <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "var(--border)" }}>
       {ideas.map((idea, i) => (
         <div key={i} style={{
-          background: i === 0 ? "rgba(61,124,246,0.06)" : "var(--surface-1)",
+          background: i === 0 ? "rgba(200,182,240,0.06)" : "var(--surface-1)",
           padding: "14px 20px",
           display: "flex", gap: "16px", alignItems: "center",
-          borderLeft: i === 0 ? "2px solid var(--blue)" : "1px solid var(--border)",
+          borderLeft: i === 0 ? "2px solid var(--pastel-purple)" : "1px solid var(--border)",
         }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: i === 0 ? "var(--blue-light)" : "var(--text-3)", minWidth: "20px" }}>{String(i + 1).padStart(2, "0")}</span>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: i === 0 ? "var(--pastel-purple)" : "var(--text-3)", minWidth: "20px" }}>{String(i + 1).padStart(2, "0")}</span>
           <div style={{ flex: 1 }}>
             <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-1)", marginBottom: "3px", letterSpacing: "-0.01em" }}>{idea.title}</p>
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
@@ -145,7 +145,7 @@ function RankedIdeasOutput({ data }: { data: Record<string, unknown> }) {
             </div>
           </div>
           <div style={{ textAlign: "right", minWidth: "40px" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: i === 0 ? "var(--blue-light)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.final_score ?? "—"}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "20px", color: i === 0 ? "var(--pastel-purple)" : "var(--text-2)", letterSpacing: "-0.02em" }}>{idea.final_score ?? "—"}</div>
             <div style={{ fontSize: "9px", color: "var(--text-3)" }}>/10</div>
           </div>
         </div>
@@ -160,16 +160,16 @@ function BlueprintOutput({ data }: { data: Record<string, unknown> }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
       {pv && (
-        <div style={{ background: "rgba(61,124,246,0.06)", padding: "24px 28px", borderLeft: "2px solid var(--blue)" }}>
-          <Label color="var(--blue-light)">Product Vision</Label>
+        <div style={{ background: "rgba(200,182,240,0.06)", padding: "24px 28px", borderLeft: "2px solid var(--pastel-purple)" }}>
+          <Label color="var(--pastel-purple)">Product Vision</Label>
           <p style={{ fontSize: "18px", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--text-1)", marginBottom: "8px", letterSpacing: "-0.01em" }}>{pv.product_name as string}</p>
           <p style={{ fontSize: "13px", color: "var(--text-2)", lineHeight: 1.75, maxWidth: "600px" }}>{pv.elevator_pitch as string}</p>
         </div>
       )}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1px", background: "var(--border)" }}>
-        {Array.isArray(bp.core_features)    && bp.core_features.length > 0    && <DataPanel label="Core Features" accent><BulletList items={bp.core_features as string[]} color="var(--sky)"/></DataPanel>}
+        {Array.isArray(bp.core_features)    && bp.core_features.length > 0    && <DataPanel label="Core Features" accent><BulletList items={bp.core_features as string[]} color="var(--pastel-blue)"/></DataPanel>}
         {Array.isArray(bp.mvp_scope)        && bp.mvp_scope.length > 0        && <DataPanel label="MVP Scope"><BulletList items={bp.mvp_scope as string[]}/></DataPanel>}
-        {Array.isArray(bp.ai_components)    && bp.ai_components.length > 0    && <DataPanel label="AI Components" accent><BulletList items={bp.ai_components as string[]} color="var(--lime)"/></DataPanel>}
+        {Array.isArray(bp.ai_components)    && bp.ai_components.length > 0    && <DataPanel label="AI Components" accent><BulletList items={bp.ai_components as string[]} color="var(--pastel-pink)"/></DataPanel>}
         {Array.isArray(bp.frontend_components) && bp.frontend_components.length > 0 && <DataPanel label="Frontend"><BulletList items={bp.frontend_components as string[]}/></DataPanel>}
         {Array.isArray(bp.target_users)     && bp.target_users.length > 0     && <DataPanel label="Target Users"><BulletList items={bp.target_users as string[]}/></DataPanel>}
         {Array.isArray(bp.integrations)     && bp.integrations.length > 0     && <DataPanel label="Integrations"><BulletList items={bp.integrations as string[]}/></DataPanel>}
@@ -211,9 +211,9 @@ function PitchOutput({ data }: { data: Record<string, unknown> }) {
         { key: "pitch_5min", label: "5-Minute Investor Pitch",    dur: "~5 min",  accent: false },
       ].map(({ key, label, dur, accent }) =>
         data[key] ? (
-          <div key={key} style={{ background: accent ? "rgba(194,255,77,0.04)" : "var(--surface-1)", borderLeft: accent ? "2px solid var(--lime)" : "1px solid var(--border)", padding: "18px 24px" }}>
+          <div key={key} style={{ background: accent ? "rgba(244,184,208,0.04)" : "var(--surface-1)", borderLeft: accent ? "2px solid var(--pastel-pink)" : "1px solid var(--border)", padding: "18px 24px" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
-              <Label color={accent ? "var(--lime)" : "var(--text-3)"}>{label}</Label>
+              <Label color={accent ? "var(--pastel-pink)" : "var(--text-3)"}>{label}</Label>
               <span className="badge" style={{ fontSize: "9px" }}>{dur}</span>
             </div>
             <p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.8, fontFamily: "var(--font-mono)" }}>{(data[key] as string).slice(0, 300)}…</p>
@@ -232,7 +232,7 @@ function ReportOutput({ data }: { data: Record<string, unknown> }) {
       <div className="term-bar">
         <div className="term-dot term-dot-r" /><div className="term-dot term-dot-y" /><div className="term-dot term-dot-g" />
         <span style={{ marginLeft: "auto", fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--text-3)" }}>final_report.md — {text.split("\n").length} lines</span>
-        <button onClick={() => navigator.clipboard.writeText(text)} style={{ marginLeft: "12px", fontSize: "10px", color: "var(--blue-light)", background: "none", border: "none", cursor: "pointer" }}>copy</button>
+        <button onClick={() => navigator.clipboard.writeText(text)} style={{ marginLeft: "12px", fontSize: "10px", color: "var(--pastel-purple)", background: "none", border: "none", cursor: "pointer" }}>copy</button>
       </div>
       <div style={{ padding: "20px", maxHeight: "480px", overflowY: "auto" }}>
         <pre style={{ fontFamily: "var(--font-mono)", fontSize: "11px", lineHeight: 1.9, color: "var(--text-2)", whiteSpace: "pre-wrap", margin: 0 }}>{text}</pre>
@@ -261,10 +261,10 @@ function IdeaSelector({ ideas, onSelect }: { ideas: RankedIdea[]; onSelect: (t: 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
       {/* CTA banner */}
-      <div style={{ background: "rgba(194,255,77,0.06)", border: "1px solid rgba(194,255,77,0.2)", borderRadius: "4px", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
+      <div style={{ background: "rgba(244,184,208,0.06)", border: "1px solid rgba(244,184,208,0.2)", borderRadius: "4px", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
         <span style={{ fontSize: "16px" }}>✦</span>
         <div>
-          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--lime)", marginBottom: "2px" }}>Your Turn — Choose the Winning Idea</p>
+          <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--pastel-pink)", marginBottom: "2px" }}>Your Turn — Choose the Winning Idea</p>
           <p style={{ fontSize: "12px", color: "var(--text-2)" }}>Select the concept the Solution Architect will develop into a full blueprint.</p>
         </div>
       </div>
@@ -274,10 +274,10 @@ function IdeaSelector({ ideas, onSelect }: { ideas: RankedIdea[]; onSelect: (t: 
           const sel = chosen === idea.title;
           return (
             <div key={idea.title} onClick={() => setChosen(idea.title)} style={{
-              background: sel ? "rgba(61,124,246,0.10)" : "var(--surface-1)",
+              background: sel ? "rgba(200,182,240,0.10)" : "var(--surface-1)",
               padding: "16px 20px",
               cursor: "pointer",
-              borderLeft: sel ? "2px solid var(--blue)" : "1px solid var(--border)",
+              borderLeft: sel ? "2px solid var(--pastel-purple)" : "1px solid var(--border)",
               transition: "all 0.15s",
             }}
               onMouseEnter={e => { if (!sel) (e.currentTarget as HTMLDivElement).style.background = "var(--surface-2)"; }}
@@ -285,14 +285,14 @@ function IdeaSelector({ ideas, onSelect }: { ideas: RankedIdea[]; onSelect: (t: 
             >
               <div style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
                 {/* Radio indicator */}
-                <div style={{ width: "16px", height: "16px", borderRadius: "50%", border: `1.5px solid ${sel ? "var(--blue)" : "var(--border-strong)"}`, flexShrink: 0, marginTop: "3px", display: "flex", alignItems: "center", justifyContent: "center", background: sel ? "var(--blue)" : "transparent" }}>
+                <div style={{ width: "16px", height: "16px", borderRadius: "50%", border: `1.5px solid ${sel ? "var(--pastel-purple)" : "var(--border-strong)"}`, flexShrink: 0, marginTop: "3px", display: "flex", alignItems: "center", justifyContent: "center", background: sel ? "var(--pastel-purple)" : "transparent" }}>
                   {sel && <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#fff" }} />}
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-1)", marginBottom: "5px", letterSpacing: "-0.01em" }}>{idea.title}</p>
                   <p style={{ fontSize: "12px", color: "var(--text-2)", lineHeight: 1.6, marginBottom: "10px" }}>{idea.description?.slice(0, 160)}…</p>
                   <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                    {[["Feasibility",idea.feasibility_score,"var(--blue-light)"],["Innovation",idea.innovation_score,"var(--sky)"],["Fit",idea.hackathon_fit_score,"var(--lime)"]].map(([l,v,c]) => (
+                    {[["Feasibility",idea.feasibility_score,"var(--pastel-purple)"],["Innovation",idea.innovation_score,"var(--pastel-blue)"],["Fit",idea.hackathon_fit_score,"var(--pastel-pink)"]].map(([l,v,c]) => (
                       <div key={l as string} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                         <span style={{ fontSize: "10px", color: "var(--text-3)", letterSpacing: "0.05em" }}>{l}</span>
                         <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "14px", color: c as string }}>{v}</span>
@@ -301,7 +301,7 @@ function IdeaSelector({ ideas, onSelect }: { ideas: RankedIdea[]; onSelect: (t: 
                   </div>
                 </div>
                 <div style={{ textAlign: "right", flexShrink: 0 }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "24px", color: sel ? "var(--blue-light)" : "var(--text-3)", letterSpacing: "-0.02em" }}>{idea.final_score ?? "—"}</div>
+                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "24px", color: sel ? "var(--pastel-purple)" : "var(--text-3)", letterSpacing: "-0.02em" }}>{idea.final_score ?? "—"}</div>
                   <div style={{ fontSize: "9px", color: "var(--text-3)", letterSpacing: "0.05em" }}>SCORE</div>
                 </div>
               </div>
@@ -482,11 +482,11 @@ export default function WorkflowPage() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p className="step-label" style={{ marginBottom: "2px", color: isActive ? "var(--text-1)" : isDone ? "var(--text-2)" : "var(--text-3)" }}>{s.label}</p>
                     {s.is_select_step && !isDone && currentStep === s.key && (
-                      <span style={{ fontSize: "9px", color: "var(--lime)", letterSpacing: "0.05em" }}>YOUR TURN</span>
+                      <span style={{ fontSize: "9px", color: "var(--pastel-pink)", letterSpacing: "0.05em" }}>YOUR TURN</span>
                     )}
                     {isDone && !isActive && <span style={{ fontSize: "9px", color: "var(--text-3)" }}>done</span>}
                   </div>
-                  {isActive && <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--lime)", flexShrink: 0, animation: isDone ? "none" : "pulse 1.5s infinite" }} />}
+                  {isActive && <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--pastel-pink)", flexShrink: 0, animation: isDone ? "none" : "pulse 1.5s infinite" }} />}
                 </div>
               );
             })}
@@ -508,7 +508,7 @@ export default function WorkflowPage() {
               {activeStepData && (
                 <div style={{ marginBottom: "32px" }} className="anim-fade-up">
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--blue-light)" }}>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--pastel-purple)" }}>
                       {ALL_STEPS.find(s => s.key === activeStepData.step)?.symbol}
                     </span>
                     <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "18px", letterSpacing: "-0.02em", color: "var(--text-1)" }}>
@@ -529,7 +529,7 @@ export default function WorkflowPage() {
               {isSelectStep && !selectStepDone && ideasForSelect.length > 0 && (
                 <div style={{ marginBottom: "32px" }} className="anim-fade-up">
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--lime)" }}>05</span>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--pastel-pink)" }}>05</span>
                     <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "18px", letterSpacing: "-0.02em", color: "var(--text-1)" }}>Idea Selection</h2>
                     <span className="badge badge-lime" style={{ fontSize: "9px" }}>Your Turn</span>
                   </div>
@@ -569,7 +569,7 @@ export default function WorkflowPage() {
 
               {/* Done state */}
               {done && (
-                <div style={{ padding: "28px 24px", background: "rgba(61,124,246,0.06)", border: "1px solid var(--blue-mid)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+                <div style={{ padding: "28px 24px", background: "rgba(200,182,240,0.06)", border: "1px solid var(--cyan-mid)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
                   <div>
                     <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "18px", color: "var(--text-1)", marginBottom: "4px", letterSpacing: "-0.01em" }}>
                       All Agents Complete 🎯
